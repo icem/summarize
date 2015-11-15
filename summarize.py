@@ -26,30 +26,29 @@ import nltk.data
 class SimpleSummarizer:
 
 	def reorder_sentences( self, output_sentences, input ):
-		output_sentences.sort( lambda s1, s2:
-			input.find(s1) - input.find(s2) )
+		output_sentences.sort(key=lambda x: input.find(x))
 		return output_sentences
-	
+
 	def get_summarized(self, input, num_sentences ):
 		# TODO: allow the caller to specify the tokenizer they want
 		# TODO: allow the user to specify the sentence tokenizer they want
-		
+
 		tokenizer = RegexpTokenizer('\w+')
-		
+
 		# get the frequency of each word in the input
 		base_words = [word.lower()
 			for word in tokenizer.tokenize(input)]
 		words = [word for word in base_words if word not in stopwords.words()]
 		word_frequencies = FreqDist(words)
-		
+
 		# now create a set of the most frequent words
 		most_frequent_words = [pair[0] for pair in
-			word_frequencies.items()[:100]]
-		
+			word_frequencies.most_common(100)]
+
 		# break the input up into sentences.  working_sentences is used
 		# for the analysis, but actual_sentences is used in the results
 		# so capitalization will be correct.
-		
+
 		sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
 		actual_sentences = sent_detector.tokenize(input)
 		working_sentences = [sentence.lower()
@@ -67,9 +66,9 @@ class SimpleSummarizer:
 					break
 				if len(output_sentences) >= num_sentences: break
 			if len(output_sentences) >= num_sentences: break
-			
+
 		# sort the output sentences back to their original order
 		return self.reorder_sentences(output_sentences, input)
-	
+
 	def summarize(self, input, num_sentences):
 		return " ".join(self.get_summarized(input, num_sentences))

@@ -1,4 +1,4 @@
-.. Copyright (C) 2010-2012 Tristan Havelick. 
+.. Copyright (C) 2010-2012 Tristan Havelick.
 .. For license information, see LICENSE.TXT
 
 ===========
@@ -14,18 +14,18 @@ Summarizers provide a short summary or abstract from a longer document.
 
 SimpleSummarizer
 ~~~~~~~~~~~~~~~~
-	
-A SimpleSummarizer makes a summary by using sentences with the most frequent 
+
+A SimpleSummarizer makes a summary by using sentences with the most frequent
 words
-	
+
 	>>> ss = summarize.SimpleSummarizer()
 	>>> input = "NLTK is a python library for working human-written text. Summarize is a package that uses NLTK to create summaries."
 	>>> ss.summarize(input, 1)
 	'NLTK is a python library for working human-written text.'
-	
+
 You can specify any number of sentenecs in the summary as you like.
 
-	>>> input = "NLTK is a python library for working human-written text. Summarize is a package that uses NLTK to create summaries. A Summariser is really cool. I don't think there are any other python summarisers."
+	>>> input = "NLTK is a python library for working human-written text. Summarize is a package that uses NLTK to create summaries. A Summariser is really cool. I don't think there are any other python summarisers. NLTK is a free and open source project."
 	>>> ss.summarize(input, 2)
 	"NLTK is a python library for working human-written text. I don't think there are any other python summarisers."
 
